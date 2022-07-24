@@ -4,12 +4,21 @@ import hasi from "../data/assets/hasi.png";
 export function useMouseCoordinates() {
   // ✅ get the setCoordinates function back too!
   // 👀 const [coordinates, setCoordinates] = useState(...)
-  const [coordinates] = useState({
+  
+  const [coordinates, setCoordinates] = useState({
     clientX: 0,
     clientY: 0,
   });
 
   useEffect(() => {
+    function handler({clientX, clientY}){
+     setCoordinates( {clientX, clientY})
+
+    }
+    window.addEventListener("mouseover", handler);
+
+    
+
     /* 
      ✅ create an event handler function to run when the mousemove event fires
      set state with the clientX and clientY coordinates from the event
@@ -23,6 +32,8 @@ export function useMouseCoordinates() {
     */
 
     return function cleanup() {
+          window.removeEventListener("mousemove", handler);
+      
       /* 
        ✅ make sure to clean up your event listeners when your hook is no longer in use!
        👀 window.removeEventListener("mousemove", handler)
